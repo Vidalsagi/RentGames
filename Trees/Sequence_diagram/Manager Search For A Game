@@ -1,0 +1,15 @@
+title Manager Search For A Game 
+
+actor Manager
+participant ManagerMenu
+database SQL
+
+Manager->ManagerMenu:ManagerMenu()
+activate ManagerMenu
+ManagerMenu->SQL:searchP1()
+activate SQL
+note over SQL:SELECT * FROM Games \nWHERE " + selectedComboBox + " like ?
+ManagerMenu<--SQL:Return Required Data
+ManagerMenu->ManagerMenu:     table.setModel()\n (Update Page Data)
+deactivate SQL
+Manager<--ManagerMenu: Dispay New Manager Page

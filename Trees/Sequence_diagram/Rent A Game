@@ -1,0 +1,21 @@
+title Rent a Game
+
+actor Customer
+participant CustomerMenu
+participant CustomerRent
+database SQL
+
+Customer->CustomerMenu: CustomerMenu()
+activate CustomerMenu
+CustomerMenu->CustomerRent:CustomerRent()
+activate CustomerRent
+CustomerRent->SQL:rentFuncC()
+activate SQL
+note over SQL:select GamesStockID from GamesStock join Games \nusing(GameID)where isRented = 'false' and Name = ?
+SQL->SQL:Update DB
+CustomerRent<--SQL:Return Updated Data
+deactivate SQL
+CustomerMenu<--CustomerRent: Display Customer Rent Page
+Customer<--CustomerMenu: Display Customer Page
+
+deactivate CustomerRent

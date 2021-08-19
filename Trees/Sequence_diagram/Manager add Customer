@@ -1,0 +1,22 @@
+title Manager add Customer
+
+actor Manager
+participant ManagerMenu
+participant ManagerAddCustomer
+database SQL
+
+Manager->ManagerMenu:ManagerMenu()
+activate ManagerMenu
+
+activate ManagerAddCustomer
+ManagerMenu->ManagerAddCustomer:ManagerAddCustomer()
+ManagerAddCustomer<-ManagerAddCustomer:AddCustomerFunc()\n   (Validate details)
+
+ManagerAddCustomer->SQL: AddCustomerFunc()
+activate SQL
+note over SQL:insert into Person (UserName,Password,City,Address,FirstName,\n         LastName,Age,isManager) values (?,?,?,?,?,?,?,?)
+SQL->SQL:Update DB
+ManagerAddCustomer<--SQL:Return Detalis
+deactivate SQL
+ManagerMenu<--ManagerAddCustomer:Display Add Customer Page
+Manager<--ManagerMenu:Display New Manager Page
